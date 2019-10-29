@@ -50,6 +50,8 @@ my $label_user = $left_frame->Label(-text => 'User: ', -background => 'cyan',
 my $label_process_user_name = $right_frame->Label(-text => "Process for user:",-background => 'green',
                                     -width => 40, -borderwidth => 2,
                                     -relief => 'sunken')->pack(-side => "top");
-
+# text widget where we see all process information for some user.                                                                                                                                                                           
+my $text_user_process = $right_frame->Text(-background => 'yellow',-width => 40,
+                                           -borderwidth => 2)->pack(-side => "top");
 
 MainLoop;
