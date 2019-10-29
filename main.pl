@@ -42,5 +42,14 @@ my $main_frame = $mw->Frame(-background => 'cyan')->pack(-side=>'top',-fill=>'x'
 my $left_frame = $main_frame->Frame(-background => 'green')->pack(-side=>'left',-fill=>'x');
 my $right_frame = $main_frame->Frame(-background => 'blue')->pack(-side=>'right',-fill=>'x');
 
+# label with User.
+my $label_user = $left_frame->Label(-text => 'User: ', -background => 'cyan',
+                                    -width => 9, -borderwidth => 2,
+                                    -relief => 'sunken')->pack(-side=>'left');                                                                                                                                                                           
+# label with user name. 
+my $label_process_user_name = $right_frame->Label(-text => "Process for user:",-background => 'green',
+                                    -width => 40, -borderwidth => 2,
+                                    -relief => 'sunken')->pack(-side => "top");
+
 
 MainLoop;
