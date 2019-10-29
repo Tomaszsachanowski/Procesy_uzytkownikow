@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+use Tk;
+use strict;
+
 sub list_all_user{
     # creat list of all users
     # from file /etc/passwd
@@ -28,3 +31,16 @@ sub process_user{
 
     return @list_process_user;
 }
+
+my $mw = MainWindow->new; # creat main window.
+$mw->geometry("600x400"); # set geometry.
+$mw->title("Lista_procesow!"); # set title.
+my $main_frame = $mw->Frame(-background => 'cyan')->pack(-side=>'top',-fill=>'x'); # add main frame.
+# creat left nad right frame in mian frame.
+#left frame has User label nad Listbox with all users
+# right fraem has Porcess user label and text widget with process.
+my $left_frame = $main_frame->Frame(-background => 'green')->pack(-side=>'left',-fill=>'x');
+my $right_frame = $main_frame->Frame(-background => 'blue')->pack(-side=>'right',-fill=>'x');
+
+
+MainLoop;
