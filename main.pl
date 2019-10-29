@@ -2,10 +2,11 @@
 
 use Tk;
 use strict;
+use List::MoreUtils qw(uniq);#we only have distinct values in an array. 
 
 sub list_all_user{
     # creat list of all users
-    # from file /etc/passwd
+    # from file /etc/passwd and command `ps -e -o user`
 
     my @list_users = ();# creat empty list
     foreach my $file (`cat /etc/passwd`) {
@@ -13,6 +14,18 @@ sub list_all_user{
     my $user = $spl[0];# frst element is user name.
     push @list_users, $user;# add user to list
     }
+    
+    my @ps_list = (`ps -e -o user`); # list of user who has process
+    @ps_list = @ps_list[1..$#ps_list]; # avoidance first elem `USER`
+
+    my @list_users_ps = ();# creat empty list
+    foreach my $line (@ps_list) {
+    my @spl = split(' ',$line);# split line `root   ` delete White signs.
+    my $user = $spl[0];# frst element is user name.
+    push @list_users_ps, $user;# add user to list
+    }
+    my @tmp_list = (@list_users, @list_users_ps); #appending a list to the end of an other list.
+    @list_users = uniq @tmp_list; #we only have distinct values in an array. 
     return @list_users;# return all list of users
 }
 
@@ -23,18 +36,20 @@ sub process_user{
     my ($user_name) = @_;# user_name = arrgument
     # run command ps -o user,pid,comm --user <user_name>
     my $command = "";
+    # when we have all process without root process.
     if (($user_name eq "all_users_without_root") == 1){
-        $command = "ps -e -o user,pid,comm";
-
+        $command = "ps -e -o user,pid,comm"; # commnad with all process.
+        # for all process i check if process belongs to root.
         foreach my $process (`$command`) {
             my @spl = split(' ',$process);# split line `root     14353 kworker/u8:2`
-            my $user = $spl[0];
+            my $user = $spl[0];# if process doesn't belongs to root.
             if (($user ne "root")==1){
                 push @list_process_user, $process;# add process to list
             }
         }
     }
-    else{
+    # When we click all_process or some user.
+    else{# if we click all_process.
         if (($user_name eq "all_users") == 1){
                 $command = "ps -e -o user,pid,comm";
         }
