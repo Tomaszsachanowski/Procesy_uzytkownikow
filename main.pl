@@ -23,17 +23,29 @@ sub process_user{
     my ($user_name) = @_;# user_name = arrgument
     # run command ps -o user,pid,comm --user <user_name>
     my $command = "";
-    if (($user_name eq "all_users") == 1){
-            $command = "ps -e -o user,pid,comm";
+    if (($user_name eq "all_users_without_root") == 1){
+        $command = "ps -e -o user,pid,comm";
+
+        foreach my $process (`$command`) {
+            my @spl = split(' ',$process);# split line `root     14353 kworker/u8:2`
+            my $user = $spl[0];
+            if (($user ne "root")==1){
+                push @list_process_user, $process;# add process to list
+            }
+        }
     }
     else{
-            $command = "ps -o user,pid,comm --user ";
-            $command = $command . $user_name; # add user name to command
+        if (($user_name eq "all_users") == 1){
+                $command = "ps -e -o user,pid,comm";
+        }
+        else{
+                $command = "ps -o user,pid,comm --user ";
+                $command = $command . $user_name; # add user name to command
+        }
+        foreach my $process (`$command`) {
+        push @list_process_user, $process;# add process to list
+        }
     }
-    foreach my $process (`$command`) {
-    push @list_process_user, $process;# add process to list
-    }
-
     return @list_process_user;
 }
 
@@ -64,7 +76,7 @@ my @all_users = list_all_user();
 #Add Listbox of all users.
 my $listbox_all_user = $left_frame->Scrolled("Listbox", -scrollbars => "osoe")->pack(-side => "left");
 #Add array with users to Listbox.
-$listbox_all_user->insert("end",  "all_users", @all_users);
+$listbox_all_user->insert("end",  "all_users","all_users_without_root", @all_users);
 #add event if we click a item from Listbox we run change_user function.
 $listbox_all_user->bind('<Button-1>'=>\&change_user);
 
