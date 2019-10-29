@@ -54,4 +54,13 @@ my $label_process_user_name = $right_frame->Label(-text => "Process for user:",-
 my $text_user_process = $right_frame->Text(-background => 'yellow',-width => 40,
                                            -borderwidth => 2)->pack(-side => "top");
 
+# list of users from file /etc/passwd.
+my @all_users = list_all_user();
+#Add Listbox of all users.
+my $listbox_all_user = $left_frame->Scrolled("Listbox", -scrollbars => "osoe")->pack(-side => "left");
+#Add array with users to Listbox.
+$listbox_all_user->insert("end",  @all_users);
+#add event if we click a item from Listbox we run change_user function.
+
+
 MainLoop;
