@@ -61,6 +61,30 @@ my $listbox_all_user = $left_frame->Scrolled("Listbox", -scrollbars => "osoe")->
 #Add array with users to Listbox.
 $listbox_all_user->insert("end",  @all_users);
 #add event if we click a item from Listbox we run change_user function.
+$listbox_all_user->bind('<Button-1>'=>\&change_user);
 
+
+sub change_user{
+    #get user name from Listbox. $_[0] is event from Listbox  
+    my $user_name = $_[0]->get($_[0]->curselection);
+    # joining string.
+    my $text = "Process for user: " . $user_name;
+    # Update label with information about user name.
+    $label_process_user_name->configure(-text=>"$text");
+
+    #creat list of process for selected user name.
+    my @all_process = process_user("$user_name");
+
+    # change text state (I can delete and add some text).
+    $text_user_process->configure(-state=>'normal');
+    # delete all text.
+    $text_user_process->delete('0.0','end');
+    # add all process.
+    foreach my $process (@all_process) {
+    $text_user_process->insert('end', $process);
+    }
+    # change text state to disabled (I can't edit text). 
+    $text_user_process->configure(-state=>'disabled');
+}
 
 MainLoop;
