@@ -1,1 +1,3 @@
 # Procesy_uzytkwonikow
+## Treść zadania:
+### Proszę napisać skrypt dający możliwość przeglądania listy procesów uruchamianych przez poszczególnychużytkowników. Wybieramy użytkownika z listy a skrypt wyświetla jego procesy. Powinien też pozwalać nawyświetlanie procesów użytkowników nie zalogowanych (np. uruchomione z crontaba), przy czym wskazanejest umożliwienie pominięcia procesów roota. Do stworzenia interfejsu należy użyć modułu Tk lub Tcl::Tk.
