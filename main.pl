@@ -21,10 +21,15 @@ sub process_user{
     # creat list of all process for user
     my @list_process_user = ();# empty list
     my ($user_name) = @_;# user_name = arrgument
-    # run command ps -o user,pid,comm --user <user_name> 
-    my $command = "ps -o user,pid,comm --user ";
-    $command = $command . $user_name; # add user name to command
-    
+    # run command ps -o user,pid,comm --user <user_name>
+    my $command = "";
+    if (($user_name eq "all_users") == 1){
+            $command = "ps -e -o user,pid,comm";
+    }
+    else{
+            $command = "ps -o user,pid,comm --user ";
+            $command = $command . $user_name; # add user name to command
+    }
     foreach my $process (`$command`) {
     push @list_process_user, $process;# add process to list
     }
@@ -45,7 +50,7 @@ my $right_frame = $main_frame->Frame(-background => 'blue')->pack(-side=>'right'
 # label with User.
 my $label_user = $left_frame->Label(-text => 'User: ', -background => 'cyan',
                                     -width => 9, -borderwidth => 2,
-                                    -relief => 'sunken')->pack(-side=>'left');                                                                                                                                                                           
+                                    -relief => 'sunken')->pack(-side=>'left'); 
 # label with user name. 
 my $label_process_user_name = $right_frame->Label(-text => "Process for user:",-background => 'green',
                                     -width => 40, -borderwidth => 2,
@@ -59,7 +64,7 @@ my @all_users = list_all_user();
 #Add Listbox of all users.
 my $listbox_all_user = $left_frame->Scrolled("Listbox", -scrollbars => "osoe")->pack(-side => "left");
 #Add array with users to Listbox.
-$listbox_all_user->insert("end",  @all_users);
+$listbox_all_user->insert("end",  "all_users", @all_users);
 #add event if we click a item from Listbox we run change_user function.
 $listbox_all_user->bind('<Button-1>'=>\&change_user);
 
