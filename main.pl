@@ -34,7 +34,7 @@ sub process_user{
     # creat list of all process for user
     my @list_process_user = ();# empty list
     my ($user_name) = @_;# user_name = arrgument
-    # run command ps -o user,pid,comm --user <user_name>
+    
     my $command = "";
     # when we have all process without root process.
     if (($user_name eq "all_users_without_root") == 1){
@@ -57,6 +57,7 @@ sub process_user{
                 $command = "ps -o user,pid,comm --user ";
                 $command = $command . $user_name; # add user name to command
         }
+        # run command ps ...
         foreach my $process (`$command`) {
         push @list_process_user, $process;# add process to list
         }
