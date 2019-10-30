@@ -8,8 +8,8 @@ Uwaga skrypt wymaga praw root'a gdyż tworzy on przykładowego użytkownika syst
 2) W celu przetestowania czy powyższe procesy są uruchomione nalezy uruchomić w innym terminalu polecenie `<perl main.pl>`
 3) Po wyborze odpowiedniego użytkownika `tests1_user` powinny być inforacje o procesach `sleep`. Natomiast dla naszego zalogowanego użytkownika powinny być widoczne procesy `sleep` i `yes`.
 ## Użycie:
-Program uruchamiamy wpisując w komendę `perl main.pl`.
-Wyświetli nam się okienko z dwoma częściami prawą (żółtą), gdzie będą wyswietlane inforamcje o processach oraz lewą (cyan) gdzie mamy możliowść wybrania usera, dla którego chcemy sprawdzić procesy, wystarczy tutaj kliknąć na odpowiedni element z listy.
+Program uruchamiamy wpisując w terminal komendę `perl main.pl`.
+Wyświetli nam się okienko z dwiema częściami prawą (żółtą), gdzie będą wyswietlane inforamcje o processach oraz lewą (cyan) gdzie mamy możliowść wybierania usera, dla którego chcemy sprawdzić procesy, wystarczy tutaj kliknąć na odpowiedni element z listy.
 
 Na samym początku listy są dodane elementy:
 * `all_users` - wyświetla procesy dla wszytkich użytkowników w systemie.
